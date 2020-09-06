@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from .TOKENS import token
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -123,9 +124,10 @@ STATIC_URL = '/static/'
 
 
 DJANGO_TELEGRAMBOT = {
+    'WEBHOOK_SITE' : 'https://51.255.131.102:8000',
     'BOTS': [
         {
-            'TOKEN': '106603081:AAGMQt_E7FqqEHEHbbfZA4ho9GtPB2SALk4',
+            'TOKEN': '',
         }
     ]
 }
