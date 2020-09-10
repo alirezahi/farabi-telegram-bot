@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from faq.bot import start_polling
+# from faq.bot import start_polling
 import threading
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-print('test urls')
-telegam_bot = threading.Thread(target=start_polling)
-telegam_bot.start()
+# print('test urls')
+# telegam_bot = threading.Thread(target=start_polling)
+# telegam_bot.start()
