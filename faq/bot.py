@@ -13,7 +13,7 @@ def send_welcome(message):
         text = model.value
     else:
         text = 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.'
-	bot.reply_to(message, text)
+    bot.reply_to(message, text)
 
 
 @bot.message_handler(commands=['help'])
@@ -24,7 +24,7 @@ def send_welcome(message):
         text = model.value
     else:
         text = 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.'
-	bot.reply_to(message, text)
+    bot.reply_to(message, text)
 
 
 @bot.message_handler(commands=['questions'])
