@@ -43,6 +43,7 @@ def send_welcome(message):
         for index, question in enumerate(questions):
             text += str(index+1) + '.' + question.question + '\n'
             itembtna = telebot.types.KeyboardButton(str(index+1))
+            markup.add(itembtna)
 
         bot.reply_to(message, text, reply_markup=markup)
 
