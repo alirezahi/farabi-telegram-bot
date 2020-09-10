@@ -4,7 +4,19 @@ from .models import QuestionSet
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
 
+def return_on_failure(value):
+  def decorate(f):
+    def applicator(*args, **kwargs):
+      try:
+         f(*args,**kwargs)
+      except:
+         print('Error')
 
+    return applicator
+
+  return decorate
+
+@return_on_failure
 @bot.message_handler(commands=['help'])
 def send_welcome(message):
     model = Config.objects.filter(name="start_msg").last()
@@ -16,6 +28,7 @@ def send_welcome(message):
     bot.reply_to(message, text)
 
 
+@return_on_failure
 @bot.message_handler(commands=['help'])
 def send_welcome(message):
     model = Config.objects.filter(name="help_msg").last()
@@ -27,6 +40,7 @@ def send_welcome(message):
     bot.reply_to(message, text)
 
 
+@return_on_failure
 @bot.message_handler(commands=['questions'])
 def send_welcome(message):
     questions = QuestionSet.objects.filter(active=True)
@@ -41,9 +55,5 @@ def send_welcome(message):
 
 
 def start_polling():
-    while True:
-        try:
-            bot.polling()
-        except Exception as err:
-            print(str(err))
-        print('TELEGRAM BOT STARTED ...')
+    print('TELEGRAM BOT STARTED ...')
+    bot.polling()
