@@ -1,5 +1,6 @@
 import telebot
 
+from .TOKENS import token
 bot = telebot.TeleBot("TOKEN", parse_mode=None)
 
 @bot.message_handler(commands=['start', 'help'])
