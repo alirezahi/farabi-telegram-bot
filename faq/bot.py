@@ -17,7 +17,7 @@ def return_on_failure(value):
   return decorate
 
 @return_on_failure
-@bot.message_handler(commands=['help'])
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
     model = Config.objects.filter(name="start_msg").last()
     text = ''
@@ -30,7 +30,7 @@ def send_welcome(message):
 
 @return_on_failure
 @bot.message_handler(commands=['help'])
-def send_welcome(message):
+def send_help(message):
     model = Config.objects.filter(name="help_msg").last()
     text = ''
     if model:
