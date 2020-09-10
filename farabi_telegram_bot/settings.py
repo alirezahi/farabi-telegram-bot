@@ -124,7 +124,7 @@ STATIC_URL = '/static/'
 
 
 DJANGO_TELEGRAMBOT = {
-    'WEBHOOK_SITE' : 'https://51.255.131.102:8000',
+    'WEBHOOK_SITE' : 'http://51.255.131.102:8000',
     'BOTS': [
         {
             'TOKEN': token,
