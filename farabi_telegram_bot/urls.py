@@ -19,7 +19,7 @@ from faq.bot import start_polling
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'', include('django_telegrambot.urls')),
 ]
 
+print('test urls')
 start_polling()
