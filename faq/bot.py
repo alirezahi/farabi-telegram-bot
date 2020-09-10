@@ -1,5 +1,5 @@
 import telebot
-from .models import QuestionSet
+from .models import QuestionSe
 
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
@@ -22,6 +22,6 @@ def send_welcome(message):
 def start_polling():
     try:
         bot.polling()
-    except error as err:
+    except Exception as err:
         print(st(err))
     print('TELEGRAM BOT STARTED ...')
