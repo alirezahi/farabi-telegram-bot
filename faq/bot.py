@@ -16,7 +16,7 @@ def send_welcome(message):
     text = ''
     for index, question in enumerate(questions):
         text += str(index) + '.' + question.question + '\n'
-	bot.reply_to(message, "text")
+	bot.reply_to(message, text)
 
 def start_polling():
     try:
