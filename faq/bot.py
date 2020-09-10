@@ -9,5 +9,8 @@ def send_welcome(message):
 
 
 def start_polling():
+    try:
+        bot.polling()
+    except error as err:
+        print(st(err))
     print('TELEGRAM BOT STARTED ...')
-    bot.polling()
