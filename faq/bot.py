@@ -15,7 +15,7 @@ def send_welcome(message):
     questions = QuestionSet.objects.filter(active=True)
     text = ''
     for index, question in enumerate(questions):
-        text += str(index) + '.' + question.question + '\n'
+        text += str(index+1) + '.' + question.question + '\n'
     bot.reply_to(message, text)
 
 
