@@ -4,20 +4,8 @@ from .models import QuestionSet, Config
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
 
-def return_on_failure(value):
-  def decorate(f):
-    def applicator(*args, **kwargs):
-      try:
-         f(*args,**kwargs)
-      except:
-         print('Error')
-
-    return applicator
-
-  return decorate
 
 @bot.message_handler(commands=['start'])
-@return_on_failure
 def send_welcome(message):
     model = Config.objects.filter(name="start_msg").last()
     text = ''
@@ -29,7 +17,6 @@ def send_welcome(message):
 
 
 @bot.message_handler(commands=['help'])
-@return_on_failure
 def send_help(message):
     model = Config.objects.filter(name="help_msg").last()
     text = ''
@@ -41,7 +28,6 @@ def send_help(message):
 
 
 @bot.message_handler(commands=['questions'])
-@return_on_failure
 def send_welcome(message):
     questions = QuestionSet.objects.filter(active=True)
 
