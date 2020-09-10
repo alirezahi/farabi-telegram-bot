@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'faq',
-    
-    'django_telegrambot',
 ]
 
 MIDDLEWARE = [
@@ -123,14 +121,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-DJANGO_TELEGRAMBOT = {
-    'MODE': 'POLLING',
-    'WEBHOOK_SITE' : 'http://51.255.131.102:8000',
-    'BOTS': [
-        {
-            'TOKEN': token,
-        }
-    ]
-}
