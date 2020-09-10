@@ -9,3 +9,6 @@ class QuestionSet(models.Model):
     active = models.BooleanField(default=True)
     rank = models.IntegerField(null=True, blank=True)
 
+class Config(models.Model):
+    name = models.CharField(max_length=100)
+    value = models.TextField()

@@ -1,13 +1,30 @@
 import telebot
-from .models import QuestionSe
+from .models import QuestionSet
 
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['help'])
 def send_welcome(message):
-	bot.reply_to(message, "سلام به بات فارابی خوش آمدی. میتونی با کمک دستور \questions لیست سوالات رو مشاهده کنی.")
+    model = Config.objects.filter(name="start_msg").last()
+    text = ''
+    if model:
+        text = model.value
+    else:
+        text = 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.'
+	bot.reply_to(message, text)
+
+
+@bot.message_handler(commands=['help'])
+def send_welcome(message):
+    model = Config.objects.filter(name="help_msg").last()
+    text = ''
+    if model:
+        text = model.value
+    else:
+        text = 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.'
+	bot.reply_to(message, text)
 
 
 @bot.message_handler(commands=['questions'])
@@ -23,5 +40,5 @@ def start_polling():
     try:
         bot.polling()
     except Exception as err:
-        print(st(err))
+        print(str(err))
     print('TELEGRAM BOT STARTED ...')
