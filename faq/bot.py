@@ -8,4 +8,5 @@ def send_welcome(message):
 
 
 def start_polling():
+    print('TELEGRAM BOT STARTED ...')
     bot.polling()
