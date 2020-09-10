@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from faq.bot import start_polling
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', include('django_telegrambot.urls')),
 ]
+
+start_polling()
