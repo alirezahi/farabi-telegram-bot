@@ -30,6 +30,10 @@ def send_welcome(message):
 @bot.message_handler(commands=['questions'])
 def send_welcome(message):
     questions = QuestionSet.objects.filter(active=True)
+
+    if questions.count() == 0:
+        bot.reply_to(message, 'سوالی وجود ندارد.')
+
     text = ''
     for index, question in enumerate(questions):
         text += str(index+1) + '.' + question.question + '\n'
@@ -37,8 +41,9 @@ def send_welcome(message):
 
 
 def start_polling():
-    try:
-        bot.polling()
-    except Exception as err:
-        print(str(err))
-    print('TELEGRAM BOT STARTED ...')
+    while True:
+        try:
+            bot.polling()
+        except Exception as err:
+            print(str(err))
+        print('TELEGRAM BOT STARTED ...')
