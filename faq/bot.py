@@ -14,36 +14,37 @@ def get_question_list():
     return QuestionSet.objects.filter(active=True)
 
 
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    TelegramUser.objects.get_or_create(chat_id=message.chat.id)
-    model = Config.objects.filter(name="start_msg").last()
+def get_config_text(name, default):
+    model = Config.objects.filter(name=name).last()
     text = ''
     if model:
         text = model.value
     else:
-        text = 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.'
+        text = default
+
+
+
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    TelegramUser.objects.get_or_create(chat_id=message.chat.id)
+    text = get_config_text('start_msg', 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.')
     bot.reply_to(message, text, reply_markup=empty_markup)
 
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
-    model = Config.objects.filter(name="help_msg").last()
-    text = ''
-    if model:
-        text = model.value
-    else:
-        text = 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.'
+    text = get_config_text('help_msg', 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.')
     bot.reply_to(message, text, reply_markup=empty_markup)
 
 
 @bot.message_handler(commands=['questions'])
-def send_welcome(message):
+def send_questions(message):
     questions = get_question_list()
     
 
+    text = get_config_text('empty_questions', 'سوالی وجود ندارد.')
     if questions.count() == 0:
-        bot.reply_to(message, 'سوالی وجود ندارد.')
+        bot.reply_to(message, )
     
     else:
 
@@ -64,7 +65,8 @@ def get_question(message):
     text = message.text
 
     if not text.isdigit():
-        bot.reply_to(message, 'این سوال وجود ندارد.', reply_markup=empty_markup)
+        text = get_config_text('not_valid_question', 'این سوال وجود ندارد.')
+        bot.reply_to(message, text, reply_markup=empty_markup)
     else:
         number = int(text)
         questions = get_question_list()
@@ -74,7 +76,8 @@ def get_question(message):
             question.save()
             bot.reply_to(message, question.answer, reply_markup=empty_markup)
         else:
-            bot.reply_to(message, 'این سوال وجود ندارد.', reply_markup=empty_markup)
+            text = get_config_text('not_valid_question', 'این سوال وجود ندارد.')
+            bot.reply_to(message, text, reply_markup=empty_markup)
 
 
 
