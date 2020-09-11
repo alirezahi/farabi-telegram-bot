@@ -12,7 +12,8 @@ class QuestionSet(models.Model):
     access_count = models.IntegerField(default=0, verbose_name='مقدار استفاده')
 
     class Meta:
-        verbose_name = 'مجموعه سوالات'
+        verbose_name = 'مجموعه سوال'
+        verbose_name_plural = 'مجموعه سوالات'
 
 class Config(models.Model):
     name = models.CharField(max_length=100, verbose_name='نام')
@@ -20,13 +21,15 @@ class Config(models.Model):
 
     class Meta:
         verbose_name = 'تنظیمات'
+        verbose_name_plural = 'تنظیمات'
 
 
 class TelegramUser(User):
     chat_id = models.CharField(max_length=100)
 
     class Meta:
-        verbose_name = 'کاربران'
+        verbose_name = 'کاربر'
+        verbose_name_plural = 'کاربران'
 
 
 class BroadcastMessage(models.Model):
@@ -34,4 +37,5 @@ class BroadcastMessage(models.Model):
 
     class Meta:
         verbose_name = 'ارسال همگانی پیام'
+        verbose_name_plural = 'ارسال همگانی پیام'
 
