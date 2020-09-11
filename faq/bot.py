@@ -11,7 +11,7 @@ empty_markup = telebot.types.ReplyKeyboardRemove(selective=False)
 
 
 def get_question_list():
-    return QuestionSet.objects.filter(active=True).order_by('rank')
+    return QuestionSet.objects.filter(active=True).order_by(F('rank').desc(nulls_last=True))
 
 
 def get_config_text(name, default):
