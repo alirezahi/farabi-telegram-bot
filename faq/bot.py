@@ -62,6 +62,8 @@ def send_questions(message):
                 markup.add(*tmp_buttons)
                 tmp_buttons = []
 
+        bot.send_message(message.chat.id, get_config_text('question_description', 'جهت مشاهده پاسخ ، شماره سوال را انتخاب کنید:')
+)
         msg = bot.send_message(message.chat.id, text, reply_markup=markup)
         bot.register_next_step_handler(msg, get_question)
 
