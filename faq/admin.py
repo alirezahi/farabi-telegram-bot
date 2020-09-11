@@ -6,12 +6,13 @@ from django.contrib.auth.models import Group, User
 
 class QuestionSetAdmin(admin.ModelAdmin):
     list_display = ('question', 'answer', 'rank', 'active', 'access_count')
-    fields = ('question', 'answer', 'active', 'rank')
+    fields = ('question', 'answer', 'active', 'rank', 'access_count')
     readonly_fields = ('access_count', )
 
 
 class ConfigAdmin(admin.ModelAdmin):
     list_display = ('name', 'value')
+    readonly_fields = ('name', )
 
 
 class TelegramUserAdmin(admin.ModelAdmin):
