@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group, User
 # Register your models here.
 
 class QuestionSetAdmin(admin.ModelAdmin):
-    list_display = ('question', 'answer', 'active', 'access_count')
+    list_display = ('question', 'answer', 'rank', 'active', 'access_count')
     fields = ('question', 'answer', 'active', 'rank')
     readonly_fields = ('access_count', )
 
