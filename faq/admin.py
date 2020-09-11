@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import QuestionSet
+from .models import QuestionSet, Config
 
 # Register your models here.
 
