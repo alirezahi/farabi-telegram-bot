@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import QuestionSet, TelegramUser, Config
+from .models import QuestionSet, TelegramUser, Config, BroadcastMessage
 
 # Register your models here.
 
@@ -16,6 +16,11 @@ class ConfigAdmin(admin.ModelAdmin):
 class TelegramUserAdmin(admin.ModelAdmin):
     list_display = ('chat_id', )
 
+
+class BroadcastMessageAdmin(admin.ModelAdmin):
+    list_display = ('text', )
+
 admin.site.register(QuestionSet, QuestionSetAdmin)
 admin.site.register(Config, ConfigAdmin)
 admin.site.register(TelegramUser, TelegramUserAdmin)
+admin.site.register(BroadcastMessage, BroadcastMessageAdmin)
