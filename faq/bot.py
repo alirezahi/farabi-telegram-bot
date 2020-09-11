@@ -58,7 +58,7 @@ def send_questions(message):
         for index, question in enumerate(questions):
             text += str(index+1) + '.' + question.question + '\n'
             tmp_buttons.append(telebot.types.KeyboardButton(str(index+1)))
-            if index % 4 == 0 or index == questions.count()-1:
+            if index % 4 == 3 or index == questions.count()-1:
                 markup.add(*tmp_buttons)
                 tmp_buttons = []
 
