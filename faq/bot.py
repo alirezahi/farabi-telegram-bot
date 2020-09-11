@@ -63,7 +63,7 @@ def get_question(message):
         number = int(text)
         questions = get_question_list()
         if questions.count() <= number:
-            question = questions[number]
+            question = questions[number-1]
             bot.reply_to(message, question.answer)
         else:
             bot.reply_to(message, 'این سوال وجود ندارد.')
