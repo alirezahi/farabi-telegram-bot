@@ -21,6 +21,7 @@ def get_config_text(name, default):
         text = model.value
     else:
         text = default
+    return text
 
 
 
