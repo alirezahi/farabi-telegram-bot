@@ -6,7 +6,7 @@ bot = telebot.TeleBot(token, parse_mode=None)
 
 
 def get_question_list():
-    return Question.objects.filter(active=True)
+    return Questions.objects.filter(active=True)
 
 
 @bot.message_handler(commands=['start'])
