@@ -52,10 +52,15 @@ def send_questions(message):
         text = ''
         markup = telebot.types.ReplyKeyboardMarkup(row_width=3)
 
+        buttons = []
+
+        tmp_buttons = []
         for index, question in enumerate(questions):
             text += str(index+1) + '.' + question.question + '\n'
-            itembtna = telebot.types.KeyboardButton(str(index+1))
-            markup.add(itembtna)
+            tmp_buttons.append(telebot.types.KeyboardButton(str(index+1)))
+            if index % 4 == 0 or index === questions.count()-1:
+                markup.add(*tmp_buttons)
+                tmp_buttons = []
 
         msg = bot.send_message(message.chat.id, text, reply_markup=markup)
         bot.register_next_step_handler(msg, get_question)
