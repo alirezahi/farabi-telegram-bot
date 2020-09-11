@@ -1,5 +1,8 @@
 import telebot
-from .models import QuestionSet, Config
+from .models import QuestionSet, Config, TelegramUser, BroadcastMessage
+from django.db.models import F
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
@@ -11,6 +14,7 @@ def get_question_list():
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    TelegramUser.objects.get_or_create(chat_id=message.chat.id)
     model = Config.objects.filter(name="start_msg").last()
     text = ''
     if model:
@@ -62,11 +66,25 @@ def get_question(message):
     else:
         number = int(text)
         questions = get_question_list()
-        if questions.count() <= number:
+        if questions.count() >= number:
             question = questions[number-1]
+            question.access_count = question.access_count + 1
+            question.save()
             bot.reply_to(message, question.answer)
         else:
             bot.reply_to(message, 'این سوال وجود ندارد.')
+
+
+
+@receiver(post_save, sender=BroadcastMessage)
+def broadcast_message(sender, instance, **kwargs):
+    text = instance.text
+    users = TelegramUser.objects.all()
+    for user in users:
+        try:
+            msg = bot.send_message(user.chat_id, text)
+        except:
+            pass
 
 
 def start_polling():
