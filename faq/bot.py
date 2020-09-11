@@ -5,6 +5,10 @@ from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
 
 
+def get_question_list():
+    return Question.objects.filter(active=True)
+
+
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     model = Config.objects.filter(name="start_msg").last()
@@ -29,7 +33,7 @@ def send_help(message):
 
 @bot.message_handler(commands=['questions'])
 def send_welcome(message):
-    questions = QuestionSet.objects.filter(active=True)
+    questions = get_question_list()
     
 
     if questions.count() == 0:
@@ -45,7 +49,24 @@ def send_welcome(message):
             itembtna = telebot.types.KeyboardButton(str(index+1))
             markup.add(itembtna)
 
-        bot.reply_to(message, text, reply_markup=markup)
+        msg = bot.send_message(message.chat.id, text, reply_markup=markup)
+        bot.register_next_step_handler(msg, get_question)
+
+
+def get_question(message):
+    
+    text = message.text
+
+    if not text.isdigit():
+        bot.reply_to(message, 'این سوال وجود ندارد.')
+    else:
+        number = int(text)
+        questions = get_question_list()
+        if questions.count() <= number:
+            question = questions[number]
+            bot.reply_to(message, question.answer)
+        else:
+            bot.reply_to(message, 'این سوال وجود ندارد.')
 
 
 def start_polling():
