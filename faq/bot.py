@@ -1,9 +1,11 @@
 import telebot
+import time
+import random
+
 from .models import QuestionSet, Config, TelegramUser, BroadcastMessage
 from django.db.models import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import random
 
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
