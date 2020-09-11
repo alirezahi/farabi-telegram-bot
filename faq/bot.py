@@ -7,7 +7,7 @@ from django.dispatch import receiver
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
 
-empty_markup = types.ReplyKeyboardRemove(selective=False)
+empty_markup = telebot.types.ReplyKeyboardRemove(selective=False)
 
 
 def get_question_list():
