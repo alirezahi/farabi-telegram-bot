@@ -27,7 +27,8 @@ def get_config_text(name, default):
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    TelegramUser.objects.get_or_create(chat_id=message.chat.id)
+    if not TelegramUser.objects.filter(chat_id=message.chat.id).exists():
+        TelegramUser.objects.create(chat_id=message.chat.id)
     text = get_config_text('start_msg', 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.')
     bot.reply_to(message, text, reply_markup=empty_markup)
 
