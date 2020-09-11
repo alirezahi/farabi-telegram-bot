@@ -50,7 +50,7 @@ def send_questions(message):
     else:
 
         text = ''
-        markup = telebot.types.ReplyKeyboardMarkup()
+        markup = telebot.types.ReplyKeyboardMarkup(row_width=3)
 
         for index, question in enumerate(questions):
             text += str(index+1) + '.' + question.question + '\n'
