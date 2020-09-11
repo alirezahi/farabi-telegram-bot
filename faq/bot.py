@@ -3,6 +3,7 @@ from .models import QuestionSet, Config, TelegramUser, BroadcastMessage
 from django.db.models import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import random
 
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
@@ -28,7 +29,7 @@ def get_config_text(name, default):
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     if not TelegramUser.objects.filter(chat_id=message.chat.id).exists():
-        TelegramUser.objects.create(chat_id=message.chat.id)
+        TelegramUser.objects.create(username=str(time.time())+str(int(random.random()*10000+10000))),chat_id=message.chat.id)
     text = get_config_text('start_msg', 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.')
     bot.reply_to(message, text, reply_markup=empty_markup)
 
