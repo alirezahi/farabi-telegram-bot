@@ -8,4 +8,9 @@ class QuestionSetAdmin(admin.ModelAdmin):
     fields = ('question', 'answer', 'active')
     readonly_fields = ('rank', )
 
+
+class ConfigAdmin(admin.ModelAdmin):
+    list_display = ('name', 'value')
+
 admin.site.register(QuestionSet, QuestionSetAdmin)
+admin.site.register(Config, ConfigAdmin)
