@@ -7,6 +7,8 @@ from django.dispatch import receiver
 from .TOKENS import token
 bot = telebot.TeleBot(token, parse_mode=None)
 
+empty_markup = types.ReplyKeyboardRemove(selective=False)
+
 
 def get_question_list():
     return QuestionSet.objects.filter(active=True)
@@ -21,7 +23,7 @@ def send_welcome(message):
         text = model.value
     else:
         text = 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.'
-    bot.reply_to(message, text)
+    bot.reply_to(message, text, reply_markup=empty_markup)
 
 
 @bot.message_handler(commands=['help'])
@@ -32,7 +34,7 @@ def send_help(message):
         text = model.value
     else:
         text = 'سلام به بات فارابی خوش آمدی. میتونی با کمک دستور /questions لیست سوالات رو مشاهده کنی.'
-    bot.reply_to(message, text)
+    bot.reply_to(message, text, reply_markup=empty_markup)
 
 
 @bot.message_handler(commands=['questions'])
@@ -62,7 +64,7 @@ def get_question(message):
     text = message.text
 
     if not text.isdigit():
-        bot.reply_to(message, 'این سوال وجود ندارد.')
+        bot.reply_to(message, 'این سوال وجود ندارد.', reply_markup=empty_markup)
     else:
         number = int(text)
         questions = get_question_list()
@@ -70,9 +72,9 @@ def get_question(message):
             question = questions[number-1]
             question.access_count = question.access_count + 1
             question.save()
-            bot.reply_to(message, question.answer)
+            bot.reply_to(message, question.answer, reply_markup=empty_markup)
         else:
-            bot.reply_to(message, 'این سوال وجود ندارد.')
+            bot.reply_to(message, 'این سوال وجود ندارد.', reply_markup=empty_markup)
 
 
 
@@ -82,7 +84,7 @@ def broadcast_message(sender, instance, **kwargs):
     users = TelegramUser.objects.all()
     for user in users:
         try:
-            msg = bot.send_message(user.chat_id, text)
+            msg = bot.send_message(user.chat_id, text, reply_markup=empty_markup)
         except:
             pass
 
